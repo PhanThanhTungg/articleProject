@@ -9,6 +9,15 @@ export const resolvers = {
           deleted: false
         })
         return articles;
+      },
+      getDetailArticle: async(_,args)=>{ //_: tham số truyền vào chưa cần dùng
+        //args là 1 object
+        const {id} = args;
+        const article = await Article.findOne({
+          _id: id,
+          deleted: false
+        })
+        return article;
       }
     }
   }; 

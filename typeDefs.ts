@@ -9,6 +9,7 @@ export const typeDefs = `#graphql
 
   type Query{
     hello: String,
-    getListArticle: [Article]
+    getListArticle: [Article],
+    getDetailArticle(id:ID): Article
   }
 `;
