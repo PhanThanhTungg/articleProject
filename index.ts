@@ -1,4 +1,3 @@
-
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -11,15 +10,26 @@ connect();
 
 import Article from "./Model/Article.model";
 
-app.get("/articles", async (req: Request, res: Response):Promise<void>=>{
-  const articles = await Article.find({
-    deleted: false,
-  })
-  res.json({
-    articles: articles
-  })
-})
+import { ApolloServer} from "@apollo/server";
+import { expressMiddleware } from '@apollo/server/express4';
+import { typeDefs } from "./typeDefs";
+import { resolvers } from "./resolvers";
+const startServer = async()=>{
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers
+  });
 
-app.listen(port,()=>{
-  console.log("app is listening in port "+port);
-})
+  await apolloServer.start();
+
+  app.use("/graphql",
+    express.json(),
+    expressMiddleware(apolloServer)
+  );
+
+  app.listen(port,()=>{
+    console.log("app is listening in port "+port);
+  })  
+}
+
+startServer();
