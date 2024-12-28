@@ -3,12 +3,10 @@ dotenv.config();
 
 import express, { Express, Request, Response} from "express";
 const app: Express = express();
-const port = process.env.PORT;
+const port: number = (Number)(process.env.PORT);
 
 import connect from "./config/connect";
 connect();
-
-import Article from "./Model/Article.model";
 
 import { ApolloServer} from "@apollo/server";
 import { expressMiddleware } from '@apollo/server/express4';
