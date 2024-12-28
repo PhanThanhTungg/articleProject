@@ -27,6 +27,11 @@ export const resolvers = {
         const articleObject = new Article(article);
         await articleObject.save();
         return articleObject;
+      },
+      deleteArticle: async(_, args)=>{
+        const {id} = args;
+        await Article.updateOne({_id: id},{deleted: true, deletedAt: new Date()});
+        return "delete successfully";
       }
     }
   }; 

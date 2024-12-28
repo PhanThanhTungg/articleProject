@@ -23,5 +23,6 @@ export const typeDefs = `#graphql
 
   type Mutation{
     createArticle(article:ArticleInput): Article
+    deleteArticle(id: ID): String
   }
 `;
