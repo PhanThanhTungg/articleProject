@@ -30,8 +30,16 @@ export const resolvers = {
       },
       deleteArticle: async(_, args)=>{
         const {id} = args;
-        await Article.updateOne({_id: id},{deleted: true, deletedAt: new Date()});
-        return "delete successfully";
+        const article = await Article.findOne({_id: id, deleted: false});
+        if(!article) return{
+          code: "400",
+          message: "error!"
+        }
+        await Article.updateOne({_id: id, deleted: false},{deleted: true, deletedAt: new Date()});
+        return {
+          code: "200",
+          message: "delete successfully"
+        };
       }
     }
   }; 
