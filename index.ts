@@ -1,10 +1,22 @@
+
+import dotenv from "dotenv";
+dotenv.config();
+
 import express, { Express, Request, Response} from "express";
 const app: Express = express();
-const port = 3000;
+const port = process.env.PORT;
 
-app.get("/articles", (req: Request, res: Response)=>{
+import connect from "./config/connect";
+connect();
+
+import Article from "./Model/Article.model";
+
+app.get("/articles", async (req: Request, res: Response):Promise<void>=>{
+  const articles = await Article.find({
+    deleted: false,
+  })
   res.json({
-    message: "ok"
+    articles: articles
   })
 })
 
