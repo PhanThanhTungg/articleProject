@@ -20,6 +20,8 @@ export const typeDefs = `#graphql
     description: String
   }
   #----------------
+  union updateArticleOutput = Article | ResponseCode
+  #----------------
   type Query{
     hello: String,
     getListArticle: [Article],
@@ -29,5 +31,6 @@ export const typeDefs = `#graphql
   type Mutation{
     createArticle(article:ArticleInput): Article
     deleteArticle(id: ID): ResponseCode
+    updateArticle(id: ID, article: ArticleInput): updateArticleOutput
   }
 `;

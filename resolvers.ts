@@ -40,6 +40,27 @@ export const resolvers = {
           code: "200",
           message: "delete successfully"
         };
+      },
+      updateArticle: async(_, args)=>{
+        const {id, article} = args;
+        let articleObject = await Article.findOne({_id: id, deleted: false});
+
+        if(!articleObject) 
+          return{
+            code: "400",
+            message: "error"
+          }
+          
+        await Article.updateOne({_id: id}, article);
+        articleObject = await Article.findOne({_id: id});
+        return articleObject;
+      }
+    },
+    updateArticleOutput:{
+      __resolveType(Obj){
+        if(Obj.code) return "ResponseCode";
+        if(Obj.title) return "Article";
+        return null;
       }
     }
   }; 
