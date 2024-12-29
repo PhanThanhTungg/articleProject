@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express, { Express, Request, Response} from "express";
+import express, { Express} from "express";
 const app: Express = express();
 const port: number = (Number)(process.env.PORT);
 
@@ -10,12 +10,15 @@ connect();
 
 import { ApolloServer} from "@apollo/server";
 import { expressMiddleware } from '@apollo/server/express4';
-import { typeDefs } from "./typeDefs";
-import { resolvers } from "./resolvers";
+import typeDefs from './typeDefs/index.typeDefs';
+import resolvers from "./resolvers/index.resolvers";
 const startServer = async()=>{
   const apolloServer = new ApolloServer({
+    // typeDefs: typeDefs,
+    // resolvers: resolvers
     typeDefs,
     resolvers
+    // trong ts a:a thì có thể viết mỗi a thôi
   });
 
   await apolloServer.start();
