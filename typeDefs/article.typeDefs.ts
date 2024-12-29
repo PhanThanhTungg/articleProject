@@ -31,7 +31,8 @@ export default `#graphql
       currentPage: Int = 1, # neu khong truyen gi thi = 1
       limit: Int = 3,
       filterKey: String,
-      filterValue: String
+      filterValue: String,
+      keySearch: String
     ):[Article],
     getDetailArticle(id:ID): Article
   }

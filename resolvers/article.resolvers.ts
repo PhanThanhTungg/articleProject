@@ -13,7 +13,8 @@ export default {
           currentPage,
           limit,
           filterKey,
-          filterValue
+          filterValue,
+          keySearch
         } = args;
 
         //sort
@@ -25,6 +26,9 @@ export default {
 
         //filter
         if(filterKey && filterValue) find[filterKey] = filterValue;
+
+        //search
+        if(keySearch) find["title"] = new RegExp(keySearch, "i");
 
         const articles = await Article.find(find).sort(sort).skip(skip).limit(limit);
         return articles;
