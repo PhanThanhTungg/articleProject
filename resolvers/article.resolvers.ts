@@ -3,13 +3,25 @@ import Category from "../Model/Category.model";
 export default {
     Query:{
       getListArticle: async (_, args)=>{
-        const {sortKey, sortValue} = args;
+        const find = {
+          deleted: false
+        }
+
+        const {
+          sortKey, 
+          sortValue,
+          currentPage,
+          limit
+        } = args;
+
+        //sort
         const sort = {};
         if(sortKey && sortValue) sort[sortKey] = sortValue;
 
-        const articles = await Article.find({
-          deleted: false
-        }).sort(sort);
+        //pagination
+        const skip = (currentPage-1)*limit;
+
+        const articles = await Article.find(find).sort(sort).skip(skip).limit(limit);
         return articles;
       },
       getDetailArticle: async(_,args)=>{ //_: tham số truyền vào chưa cần dùng
