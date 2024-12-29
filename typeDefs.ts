@@ -9,6 +9,11 @@ export const typeDefs = `#graphql
     avatar: String,
     description: String
   }
+  type Category{
+    id: String,
+    title: String,
+    avatar: String
+  }
   type ResponseCode {
     code: String,
     message: String
@@ -19,6 +24,10 @@ export const typeDefs = `#graphql
     avatar: String,
     description: String
   }
+  input CategoryInput {
+    title: String,
+    avatar: String
+  }
   #----------------
   union updateArticleOutput = Article | ResponseCode
   #----------------
@@ -26,11 +35,16 @@ export const typeDefs = `#graphql
     hello: String,
     getListArticle: [Article],
     getDetailArticle(id:ID): Article
+    getListCategory: [Category],
+    getDetailCategory(id: ID): Category,
   }
   #----------------
   type Mutation{
     createArticle(article:ArticleInput): Article
     deleteArticle(id: ID): ResponseCode
     updateArticle(id: ID, article: ArticleInput): updateArticleOutput
+    createCategory(category: CategoryInput): Category,
+    deleteCategory(id: ID): ResponseCode,
+    updateCategory(id: ID, category: CategoryInput): Category,
   }
 `;
