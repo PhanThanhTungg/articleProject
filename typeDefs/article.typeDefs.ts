@@ -25,7 +25,7 @@ export default `#graphql
   union updateArticleOutput = Article | ResponseCode
   #----------------
   type Query{
-    getListArticle: [Article],
+    getListArticle(sortKey: String, sortValue: String): [Article],
     getDetailArticle(id:ID): Article
   }
   #----------------

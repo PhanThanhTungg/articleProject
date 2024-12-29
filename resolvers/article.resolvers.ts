@@ -2,10 +2,14 @@ import Article from "../Model/Article.model";
 import Category from "../Model/Category.model";
 export default {
     Query:{
-      getListArticle: async ()=>{
+      getListArticle: async (_, args)=>{
+        const {sortKey, sortValue} = args;
+        const sort = {};
+        if(sortKey && sortValue) sort[sortKey] = sortValue;
+
         const articles = await Article.find({
           deleted: false
-        })
+        }).sort(sort);
         return articles;
       },
       getDetailArticle: async(_,args)=>{ //_: tham số truyền vào chưa cần dùng
