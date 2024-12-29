@@ -1,6 +1,26 @@
 import md5 from "md5";
 import User from "../Model/User.model";
+
 export default {
+  Query:{
+    getUser: async(_, args, context)=>{
+      if(context.token){
+        const user = await User.findOne({
+          token: context.token,
+          deleted: false
+        }).lean();
+        user["id"] = user._id;
+        return{
+          code:"200",
+          ...user
+        }
+      }
+      else return{
+        code:"400",
+        message:"error"
+      }
+    }
+  },
   Mutation:{
     register: async(_, args)=>{
       const {user} = args;

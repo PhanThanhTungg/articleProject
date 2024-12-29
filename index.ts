@@ -12,12 +12,13 @@ import { ApolloServer} from "@apollo/server";
 import { expressMiddleware } from '@apollo/server/express4';
 import typeDefs from './typeDefs/index.typeDefs';
 import resolvers from "./resolvers/index.resolvers";
+import { requireAuth } from "./middleware/auth.middleware";
 const startServer = async()=>{
   const apolloServer = new ApolloServer({
     // typeDefs: typeDefs,
     // resolvers: resolvers
     typeDefs,
-    resolvers
+    resolvers,
     // trong ts a:a thì có thể viết mỗi a thôi
   });
 
@@ -25,7 +26,12 @@ const startServer = async()=>{
 
   app.use("/graphql",
     express.json(),
-    expressMiddleware(apolloServer)
+    requireAuth,
+    expressMiddleware(apolloServer,{
+      context:async ({ req }) => {
+        return req
+      }
+    })
   );
 
   app.listen(port,()=>{

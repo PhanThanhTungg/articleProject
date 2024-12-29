@@ -19,6 +19,10 @@ export default `#graphql
     password: String!
   }
 
+  type Query{
+    getUser: User
+  }
+
   type Mutation{
     register(user: UserRegisterInput): User
     login(user: UserLoginInput): User
