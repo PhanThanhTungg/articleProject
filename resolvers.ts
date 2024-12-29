@@ -97,6 +97,20 @@ export const resolvers = {
         return categoryObject;
       }
     },
+
+      Article:{
+        // item là object trả vê ở phần query
+        category: async(item)=>{
+          const categoryId = item.categoryId;
+          const category = await Category.findOne({
+            _id: categoryId,
+            deleted: false
+          });
+    
+          return category;
+        }
+      },
+
     updateArticleOutput:{
       __resolveType(Obj){
         if(Obj.code) return "ResponseCode";
