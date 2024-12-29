@@ -11,7 +11,9 @@ export default {
           sortKey, 
           sortValue,
           currentPage,
-          limit
+          limit,
+          filterKey,
+          filterValue
         } = args;
 
         //sort
@@ -20,6 +22,9 @@ export default {
 
         //pagination
         const skip = (currentPage-1)*limit;
+
+        //filter
+        if(filterKey && filterValue) find[filterKey] = filterValue;
 
         const articles = await Article.find(find).sort(sort).skip(skip).limit(limit);
         return articles;
