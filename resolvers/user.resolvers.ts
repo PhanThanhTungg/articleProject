@@ -15,7 +15,7 @@ export default {
           message: "email exists"
         }
 
-      user.password= md5[user.password];
+      user.password= md5(user.password);
       
       const UserObject = new User(user);
       await UserObject.save();
@@ -26,6 +26,35 @@ export default {
         message:"register successfully"
       }
 
+    },
+
+    login: async(_, args)=>{
+      const {email, password} = args.user;
+      const existUser = await User.findOne({
+        email: email,
+        deleted: false
+      });
+    
+      if(!existUser) {
+        return {
+          code: "400",
+          message: "email doesn't exist"
+        };
+      }
+    
+      if(md5(password) != existUser.password) 
+        return {
+          code: "400",
+          message: "wrong password"
+        }
+      
+      const ObjectUser = existUser.toObject();
+      ObjectUser["id"] = ObjectUser._id;
+      return {
+        code: "200",
+        message: "login successfully",
+        ...ObjectUser
+      }
     }
   }
 }

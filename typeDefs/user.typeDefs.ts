@@ -14,7 +14,13 @@ export default `#graphql
     password: String!
   }
 
+  input UserLoginInput{
+    email: String!,
+    password: String!
+  }
+
   type Mutation{
     register(user: UserRegisterInput): User
+    login(user: UserLoginInput): User
   }
 `
