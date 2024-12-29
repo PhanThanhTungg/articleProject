@@ -23,7 +23,8 @@ export const typeDefs = `#graphql
   input ArticleInput{
     title: String,
     avatar: String,
-    description: String
+    description: String,
+    categoryId: ID
   }
   input CategoryInput {
     title: String,
