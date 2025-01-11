@@ -19,6 +19,7 @@ const startServer = async()=>{
     // resolvers: resolvers
     typeDefs,
     resolvers,
+    introspection: true
     // trong ts a:a thì có thể viết mỗi a thôi
   });
 
