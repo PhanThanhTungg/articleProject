@@ -15,12 +15,9 @@ import resolvers from "./resolvers/index.resolvers";
 import { requireAuth } from "./middleware/auth.middleware";
 const startServer = async()=>{
   const apolloServer = new ApolloServer({
-    // typeDefs: typeDefs,
-    // resolvers: resolvers
     typeDefs,
     resolvers,
     introspection: true
-    // trong ts a:a thì có thể viết mỗi a thôi
   });
 
   await apolloServer.start();
